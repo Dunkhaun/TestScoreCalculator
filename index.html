@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Score Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .calculator {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input {
+            margin-bottom: 10px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        p {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h2>Test Score Calculator</h2>
+        <p>Enter test scores:</p>
+        <input type="number" id="score" placeholder="Enter score">
+        <button onclick="addScore()">Add Score</button>
+        <p id="scoreList">Scores: </p>
+        <p>Average: <span id="average">-</span></p>
+        <p>Total: <span id="total">-</span></p>
+    </div>
+
+    <script>
+        let scores = [];
+
+        function addScore() {
+            const scoreInput = document.getElementById("score");
+            const score = parseFloat(scoreInput.value);
+            if (!isNaN(score)) {
+                scores.push(score);
+                updateScoreList();
+                updateAverage();
+                updateTotal();
+            }
+            scoreInput.value = "";
+        }
+
+        function updateScoreList() {
+            const scoreList = document.getElementById("scoreList");
+            scoreList.innerText = "Scores: " + scores.join(", ");
+        }
+
+        function updateAverage() {
+            const averageSpan = document.getElementById("average");
+            if (scores.length > 0) {
+                const sum = scores.reduce((acc, val) => acc + val, 0);
+                const average = sum / scores.length;
+                averageSpan.innerText = average.toFixed(2);
+            } else {
+                averageSpan.innerText = "-";
+            }
+        }
+
+        function updateTotal() {
+            const totalSpan = document.getElementById("total");
+            if (scores.length > 0) {
+                const total = scores.reduce((acc, val) => acc + val, 0);
+                totalSpan.innerText = total;
+            } else {
+                totalSpan.innerText = "-";
+            }
+        }
+    </script>
+</body>
+</html>
